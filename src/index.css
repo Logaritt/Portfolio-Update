@@ -1,0 +1,716 @@
+@import "tailwindcss";
+
+@layer base{
+  body {
+    font-family: "Poppins", sans-serif;
+  }
+}
+
+html, body {
+  scroll-behavior: smooth;
+  overflow-x: hidden; /* ✅ cegah page geser kanan-kiri */
+}
+
+/* ===== Hero Blob Frame (foto di dalam frame) ===== */
+.hero-photo {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1 / 1;          /* bikin blob selalu kotak (biar rapi) */
+  border-radius: 62% 38% 30% 70% / 60% 30% 70% 40%;
+  padding: 4px;                 /* tebal frame */
+  overflow: hidden;             /* ini yang bikin foto nggak keluar */
+  will-change: border-radius, transform;
+  animation: blobMorph 9s ease-in-out infinite;
+}
+
+/* frame animasi (yang muter cuma border) */
+.hero-photo::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 4px;
+
+  background: conic-gradient(
+    from 0deg,
+    rgba(245, 158, 11, 0.95),
+    rgba(255, 255, 255, 0.08),
+    rgba(245, 158, 11, 0.95),
+    rgba(255, 255, 255, 0.10),
+    rgba(245, 158, 11, 0.95)
+  );
+
+  /* bikin gradient cuma muncul di "border", tengahnya bolong */
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+          mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+          mask-composite: exclude;
+
+  animation: heroSpin 7s linear infinite;
+}
+
+.hero-photo__inner {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  border-radius: inherit;
+  overflow: hidden;             /* double-safety clip */
+  background: rgba(24, 24, 27, 0.55);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.hero-photo__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+
+  /* ✅ zoom-out sedikit (jangan < 1 biar nggak muncul background kosong) */
+  transform: scale(1);
+
+  /* ✅ geser fokus ke atas biar jidat nggak kepotong */
+  object-position: center 15%;
+
+  display: block;
+}
+
+
+/* frame muter */
+@keyframes heroSpin {
+  to { transform: rotate(360deg); }
+}
+
+/* blob morph (bentuknya berubah pelan, estetik) */
+@keyframes blobMorph {
+  0%, 100% {
+    border-radius: 62% 38% 30% 70% / 60% 30% 70% 40%;
+  }
+  50% {
+    border-radius: 45% 55% 55% 45% / 45% 60% 40% 55%;
+  }
+}
+
+/* === Hero badge (AI/Website/Data) === */
+.hero-badge {
+  width: 88px;
+  height: 88px;
+  border-radius: 18px;
+  background: rgb(245 158 11);
+  display: grid;
+  place-items: center;
+  box-shadow: 0 20px 60px rgba(245, 158, 11, 0.22);
+}
+
+.hero-badge__word {
+  font-weight: 900;
+  font-size: 34px;
+  color: #0b0b0b;
+  animation: wordPop 350ms ease;
+}
+
+@keyframes wordPop {
+  from { opacity: 0; transform: translateY(6px) scale(0.96); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* === Social buttons under hero title === */
+.social-btn {
+  width: 44px;
+  height: 44px;
+  border-radius: 14px;
+  display: grid;
+  place-items: center;
+  background: rgba(24, 24, 27, 0.55);
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  transition: 200ms ease;
+  opacity: 0.85;
+}
+.social-btn:hover {
+  opacity: 1;
+  transform: translateY(-2px);
+}
+
+/* === Marquee (tools berjalan ke kanan, redup) === */
+.marquee {
+  overflow: hidden;
+  border-radius: 18px;
+  padding: 10px 6px;
+  mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
+}
+
+.marquee__track {
+  display: flex;
+  gap: 22px;
+  width: max-content;
+  animation: marqueeRight 26s linear infinite;
+  will-change: transform;
+}
+
+.marquee:hover .marquee__track {
+  animation-play-state: paused;
+}
+
+@keyframes marqueeRight {
+  from { transform: translateX(-50%); }
+  to { transform: translateX(0%); }
+}
+
+.tool-chip {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 12px;
+  border-radius: 14px;
+  border: 1px solid rgba(255,255,255,0.08);
+  background: rgba(24, 24, 27, 0.35);
+  opacity: 0.55;              /* redup */
+  transition: 180ms ease;
+  user-select: none;
+  white-space: nowrap;
+}
+
+.tool-chip:hover { opacity: 0.95; }
+
+.tool-chip__img {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+  filter: grayscale(20%);
+}
+
+.tool-chip__text {
+  font-size: 13px;
+  opacity: 0.9;
+}
+
+/* ===== About: rail (garis + 2 titik ujung) ===== */
+.about-rail{
+  width: min(980px, 92%);
+  height: 2px;
+  margin-inline: auto;
+  background: rgba(255,255,255,0.18);
+  border-radius: 999px;
+  position: relative;
+}
+
+.about-rail::before,
+.about-rail::after{
+  content:"";
+  position:absolute;
+  top: 50%;
+  width: 18px;
+  height: 18px;
+  transform: translateY(-50%);
+  border-radius: 999px;
+  background: rgba(255,255,255,0.65);
+  box-shadow: 0 0 0 7px rgba(245, 158, 11, 0.10);
+}
+
+.about-rail::before{ left: -9px; }
+.about-rail::after{ right: -9px; }
+
+/* ===== About: tab buttons ===== */
+.about-tabbtn{
+  padding: 10px 16px;
+  border-radius: 999px;
+  font-weight: 700;
+  opacity: 0.65;
+  transition: 180ms ease;
+}
+.about-tabbtn:hover{
+  opacity: 1;
+  transform: translateY(-1px);
+}
+.about-tabbtn.is-active{
+  opacity: 1;
+  background: rgba(245, 158, 11, 0.92);
+  color: #111;
+}
+
+/* ===== About: media card + animasi ===== */
+.about-media{
+  border-radius: 22px;
+  overflow: hidden;
+  background: rgba(24, 24, 27, 0.55);
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  box-shadow: 0 24px 70px rgba(0,0,0,0.35);
+}
+
+.about-media__img{
+  width: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* animasi masuk kiri/kanan */
+@keyframes aboutInLeft {
+  from { opacity: 0; transform: translateX(-48px) scale(0.98); }
+  to   { opacity: 1; transform: translateX(0) scale(1); }
+}
+@keyframes aboutInRight {
+  from { opacity: 0; transform: translateX(48px) scale(0.98); }
+  to   { opacity: 1; transform: translateX(0) scale(1); }
+}
+
+.about-media--left{
+  animation: aboutInLeft 520ms cubic-bezier(.2,.8,.2,1) both;
+}
+.about-media--right{
+  animation: aboutInRight 520ms cubic-bezier(.2,.8,.2,1) both;
+}
+
+
+/* ===== About Journey (horizontal timeline) ===== */
+.about-journey{
+  position: relative;
+  margin-top: 24px;
+}
+
+.about-journey__tabs{
+  display:flex;
+  justify-content:center;
+  gap: 14px;
+  margin-bottom: 10px;
+}
+
+.about-journey__tab{
+  display:inline-flex;
+  align-items:center;
+  gap: 10px;
+  padding: 10px 16px;
+  border-radius: 999px;
+  background: rgba(24,24,27,0.45);
+  border: 1px solid rgba(255,255,255,0.10);
+  opacity: 0.75;
+  transition: 180ms ease;
+}
+.about-journey__tab:hover{
+  opacity: 1;
+  transform: translateY(-1px);
+}
+.about-journey__tab.is-active{
+  opacity: 1;
+  background: rgba(245, 158, 11, 0.92);
+  color: #111;
+  border-color: rgba(245, 158, 11, 0.35);
+}
+
+.about-journey__title{
+  text-align:center;
+  font-weight: 900;
+  font-size: 32px;
+  margin: 12px 0 6px;
+}
+
+.about-journey__scroll{
+  position: relative;
+  overflow: hidden;           /* ✅ hilangkan scroll kanan-kiri */
+  padding: 22px 8px 46px;
+}
+
+/* grid 3 baris: TOP cards | LINE+DOT | BOTTOM cards */
+.about-journey__grid{
+  --cols: 2;
+  display: grid;
+
+  /* ✅ biar tetap muat tanpa bikin overflow */
+  grid-template-columns: repeat(var(--cols), minmax(0, 1fr));
+
+  grid-template-rows: auto 56px auto;
+  column-gap: 18px;
+  row-gap: 12px;
+
+  width: 100%;
+  position: relative;
+}
+
+
+@media (min-width: 1024px){
+  .about-journey__grid{
+    min-width: 100%;
+  }
+}
+
+.about-journey__line{
+  grid-column: 1 / -1;
+  grid-row: 2;
+  align-self: center;
+  height: 2px;
+  background: rgba(255,255,255,0.22);
+  border-radius: 999px;
+  position: relative;
+  z-index: 0;
+}
+
+/* DOT pas di garis */
+.about-journey__dot{
+  grid-row: 2;
+  place-self: center;
+  width: 12px;
+  height: 12px;
+  border-radius: 999px;
+  background: rgba(245, 158, 11, 0.95);
+  box-shadow: 0 0 0 9px rgba(245, 158, 11, 0.12);
+  z-index: 2;
+}
+
+/* dot ujung lebih gede */
+.about-journey__dot.is-end{
+  width: 18px;
+  height: 18px;
+  background: rgba(255,255,255,0.78);
+  box-shadow: 0 0 0 11px rgba(245, 158, 11, 0.12);
+}
+
+/* cards */
+.about-journey__card{
+  width: 100%;               /* ✅ jangan fixed width */
+  max-width: 320px;          /* ✅ batas aman biar rapi */
+  justify-self: center;
+  background: rgba(24,24,27,0.45);
+  border: 1px solid rgba(255,255,255,0.10);
+  border-radius: 18px;
+  padding: 14px 14px 12px;
+  transition: 180ms ease;
+}
+
+.about-journey__card:hover{
+  background: rgba(24,24,27,0.62);
+  transform: translateY(-1px);
+}
+
+.about-journey__card.row-top{
+  grid-row: 1;
+  align-self: end;
+}
+.about-journey__card.row-bottom{
+  grid-row: 3;
+  align-self: start;
+}
+
+.about-journey__cardTitle{
+  font-weight: 800;
+  margin-bottom: 2px;
+}
+.about-journey__cardOrg{
+  opacity: 0.75;
+}
+.about-journey__cardMeta{
+  opacity: 0.55;
+  font-size: 13px;
+  margin-top: 6px;
+}
+.about-journey__cardPeriod{
+  margin-top: 10px;
+  opacity: 0.65;
+  font-size: 13px;
+  display:flex;
+  align-items:center;
+  gap: 8px;
+}
+
+/* ===== Mascot kecil di pojok (bunny-style) ===== */
+.about-mascot{
+  position: absolute;
+  bottom: 10px;
+  pointer-events: auto; /* wajib biar bisa klik */
+  z-index: 10;          /* naikin biar pasti di atas card */
+  opacity: 0.95;
+}
+
+.about-mascot.is-left{
+  left: 10px;
+  animation: mascotInLeft 520ms cubic-bezier(.2,.8,.2,1) both;
+}
+.about-mascot.is-right{
+  right: 10px;
+  animation: mascotInRight 520ms cubic-bezier(.2,.8,.2,1) both;
+}
+
+.about-mascot img{
+  width: 86px;
+  height: 86px;
+  object-fit: cover;
+  border-radius: 16px;
+  border: 1px solid rgba(255,255,255,0.12);
+  background: rgba(24,24,27,0.55);
+  box-shadow: 0 18px 55px rgba(0,0,0,0.35);
+}
+
+/* stack 2 foto untuk experience */
+.about-mascot__stack{
+  width: 128px;
+  height: 92px;
+  position: relative;
+}
+
+/* tombol jadi layer */
+.about-mascot__stack .about-mascot__btn{
+  position: absolute;
+  bottom: 0;                 /* ✅ sama-sama nempel bawah */
+  left: 50%;
+  transform-origin: bottom center;
+}
+
+/* gambar ikut bentuk */
+.about-mascot__stack .about-mascot__btn img{
+  width: 84px;
+  height: 84px;
+  object-fit: cover;
+  border-radius: 16px;
+  border: 1px solid rgba(255,255,255,0.12);
+  background: rgba(24,24,27,0.55);
+  box-shadow: 0 18px 55px rgba(0,0,0,0.35);
+}
+
+/* foto 1 (belakang) */
+.about-mascot__stack .about-mascot__btn:nth-child(1){
+  transform: translateX(-58px) rotate(-18deg);
+  z-index: 1;
+  opacity: 0.95;
+}
+
+/* foto 2 (depan) */
+.about-mascot__stack .about-mascot__btn:nth-child(2){
+  transform: translateX(-20px) rotate(10deg);
+  z-index: 2;
+}
+
+/* hover biar makin “hidup” */
+.about-mascot__stack .about-mascot__btn:hover{
+  z-index: 5;
+  transform: translateX(-20px) rotate(6deg) translateY(-2px);
+}
+.about-mascot__stack .about-mascot__btn:nth-child(1):hover{
+  transform: translateX(-58px) rotate(-12deg) translateY(-2px);
+}
+
+.about-mascot__btn{
+  display: inline-block;
+  border-radius: 16px;
+  outline: none;
+}
+
+.about-mascot__btn{
+  display: inline-block;
+  border-radius: 16px;
+  outline: none;
+  cursor: pointer;
+}
+
+/* hover/active hanya untuk yang single (education) */
+.about-mascot > .about-mascot__btn:hover{
+  transform: translateY(-1px);
+}
+.about-mascot > .about-mascot__btn:active{
+  transform: translateY(0) scale(0.99);
+}
+
+
+
+@keyframes mascotInLeft{
+  from{ opacity: 0; transform: translate(-28px, 18px) scale(0.92); }
+  to  { opacity: 1; transform: translate(0,0) scale(1); }
+}
+@keyframes mascotInRight{
+  from{ opacity: 0; transform: translate(28px, 18px) scale(0.92); }
+  to  { opacity: 1; transform: translate(0,0) scale(1); }
+}
+
+
+/* ===== Awards Section ===== */
+.awards {
+  padding: 72px 20px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.awards__kicker {
+  color: #f59e0b; /* match amber */
+  font-size: 14px;
+  letter-spacing: 0.08em;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.awards__title {
+  font-size: 44px;
+  line-height: 1.05;
+  margin: 0 0 14px 0;
+  text-align: center;
+}
+
+.awards__desc {
+  color: rgba(255,255,255,0.7);
+  max-width: 720px;
+  margin: 0 auto 28px auto;
+  text-align: center;
+}
+
+.awards__grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 22px;
+}
+
+@media (max-width: 900px) {
+  .awards__grid { grid-template-columns: 1fr; }
+  .awards__title { font-size: 36px; }
+}
+
+
+.awards__card{
+  text-align: left;
+  border-radius: 26px;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.10);
+  background: rgba(24,24,27,0.45);
+  transition: 180ms ease;
+}
+
+.awards__card:hover{
+  background: rgba(24,24,27,0.62);
+  transform: translateY(-2px);
+}
+
+.awards__imgWrap{
+  position: relative;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+}
+
+.awards__img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display:block;
+  transition: transform 450ms ease;
+}
+
+.awards__card:hover .awards__img{
+  transform: scale(1.03);
+}
+
+.awards__imgOverlay{
+  position:absolute;
+  inset:0;
+  background: linear-gradient(to top, rgba(9,9,11,0.75), rgba(9,9,11,0.10), transparent);
+}
+
+.awards__body{
+  padding: 16px 18px 18px;
+}
+
+.awards__meta{
+  display:flex;
+  gap: 10px;
+  align-items:center;
+  margin-bottom: 8px;
+}
+
+.awards__tag{
+  display:inline-flex;
+  font-size: 12px;
+  padding: 6px 10px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,0.10);
+  background: rgba(255,255,255,0.06);
+  opacity: 0.9;
+}
+
+.awards__cardTitle{
+  font-weight: 900;
+  font-size: 18px;
+  line-height: 1.25;
+}
+
+.awards__cardDesc{
+  margin-top: 8px;
+  color: rgba(255,255,255,0.70);
+  line-height: 1.6;
+  font-size: 14px;
+}
+
+/* Modal gallery nav button */
+.gallery-nav{
+  position: absolute;
+  top: 45%;
+  transform: translateY(-50%);
+  width: 42px;
+  height: 42px;
+  border-radius: 16px;
+  border: 1px solid rgba(255,255,255,0.10);
+  background: rgba(0,0,0,0.35);
+  display: grid;
+  place-items: center;
+  transition: 160ms ease;
+}
+
+.gallery-nav:hover{
+  background: rgba(0,0,0,0.55);
+}
+
+.gallery-nav.left-3{ left: 12px; }
+.gallery-nav.right-3{ right: 12px; }
+
+/* ===== About Journey: mobile/tablet fix (swipe horizontally) ===== */
+@media (max-width: 900px) {
+  .about-journey__scroll {
+    /* sebelumnya hidden -> bikin kartu kepencet */
+    overflow-x: auto;
+    overflow-y: visible;
+    -webkit-overflow-scrolling: touch;
+
+    /* optional: biar swipe terasa "snap" */
+    scroll-snap-type: x mandatory;
+
+    /* biar tidak nempel tepi */
+    padding: 18px 8px 46px;
+  }
+
+  /* hide scrollbar (opsional) */
+  .about-journey__scroll::-webkit-scrollbar {
+    display: none;
+  }
+  .about-journey__scroll {
+    scrollbar-width: none;
+  }
+
+  .about-journey__grid {
+    /* bikin kolom punya lebar tetap, jadi tidak gepeng */
+    grid-template-columns: repeat(var(--cols), 260px);
+    width: max-content; /* grid selebar konten -> bisa discroll */
+    column-gap: 14px;
+  }
+
+  .about-journey__card {
+    width: 260px;
+    max-width: 260px;
+    justify-self: start;
+
+    /* snap per card */
+    scroll-snap-align: start;
+  }
+}
+
+/* extra kecil (hp kecil banget) */
+@media (max-width: 420px) {
+  .about-journey__grid {
+    grid-template-columns: repeat(var(--cols), 220px);
+  }
+
+  .about-journey__card {
+    width: 220px;
+    max-width: 220px;
+    padding: 12px;
+  }
+
+  .about-journey__cardTitle {
+    font-size: 14px;
+  }
+  .about-journey__cardOrg,
+  .about-journey__cardMeta,
+  .about-journey__cardPeriod {
+    font-size: 12px;
+  }
+}
