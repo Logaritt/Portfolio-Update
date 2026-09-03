@@ -75,7 +75,7 @@ function App() {
         {/* LEFT */}
         <div className="animate__animated animate__fadeInUp animate__delay-1s">
           <p className="opacity-60 mb-4">Hi, I'm Naufal Geo Pastrana</p>
-            <div className="flex flex-col sm:flex-row sm:items-end items-start gap-4 mb-5">
+            <div className="flex flex-col sm:flex-row sm:items-center items-start gap-4 mb-5">
               <div className="hero-badge">
                 <span key={activeRole.badge} className="hero-badge__word">
                   {activeRole.badge}
@@ -89,9 +89,9 @@ function App() {
 
             <p className="opacity-60 max-w-xl">
               Building digital solutions across{" "}
-              <span className="text-amber-300">Web Development</span>,{" "}
-              <span className="text-amber-300">Data Analytics</span>, and{" "}
-              <span className="text-amber-300">AI Engineering</span>.
+              <span className="text-bluecustom">Web Development</span>,{" "}
+              <span className="text-bluecustom">Data Analytics</span>, and{" "}
+              <span className="text-bluecustom">AI Engineering</span>.
             </p>
 
           {/* buttons */}
@@ -99,7 +99,7 @@ function App() {
             <button
               type="button"
               onClick={() => setResumeOpen(true)}
-              className="bg-amber-400 text-black px-6 py-4 rounded-2xl hover:bg-amber-300 transition font-semibold"
+              className="bg-bluecustom text-black px-6 py-4 rounded-2xl hover:bg-white transition font-semibold"
             >
               Open Resume <i className="ri-file-text-line ri-lg"></i>
             </button>
@@ -135,12 +135,12 @@ function App() {
       {/* Hero Section */}
 
       {/* What I do */}
-      <div className="mt-24">
+      {/* <div className="mt-24">
         <h2 className="text-4xl font-bold mb-6">What I do?</h2>
 
-        <div className="grid lg:grid-cols-2 grid-cols-1 gap-6 items-start">
+        <div className="grid lg:grid-cols-2 grid-cols-1 gap-6 items-start"> */}
           {/* LEFT accordion */}
-          <div className="space-y-3">
+          {/* <div className="space-y-3">
             {whatIDo.map((item) => {
               const isOpen = openDo === item.key;
               return (
@@ -166,10 +166,10 @@ function App() {
                 </button>
               );
             })}
-          </div>
+          </div> */}
 
           {/* RIGHT card */}
-          <div className="bg-zinc-900/40 border border-white/10 rounded-3xl p-10 min-h-[260px] flex flex-col justify-center self-start lg:sticky lg:top-28">
+          {/* <div className="bg-zinc-900/40 border border-white/10 rounded-3xl p-10 min-h-[260px] flex flex-col justify-center self-start lg:sticky lg:top-28">
             <p className="opacity-65 text-lg leading-relaxed">
               Driving digital transformation through <b>seamless</b>, <b>rapid</b>, and <b>intelligence-led</b> development for the whole ecosystem.
             </p>
@@ -184,21 +184,20 @@ function App() {
             </div>
           </div>
         </div>
-      </div>
+      </div> */}
       {/* What I do */}
 
 
 
 
      {/* About */}
-      <div className="About mt-32 py-10 scroll-mt-24" id="About">
+      <div className="About mt-5 py-10 scroll-mt-24" id="About">
         {/* TOP ABOUT CARD (paragraf tentang kamu) */}
-        <div className="xl:w-2/3 lg:w-3/4 w-full mx-auto p-7 bg-zinc-800 rounded-lg">
-          <p className="text-base/loose mb-10">
-            Graduated of Informatics Faculty from Telkom University, who passionate about Web Development and Data Analyst.
-            Experience in Web Dev and Data Analyst Fields including Organizational Development, Learning and Program
-            Development. Creative, Growth mindset and visioner person, Adaptive, Quick Learner, and have strong willingness to
-            pursue professional career in Multinational Company.
+        <div className="w-full xl:w-2/3 lg:w-3/4 mx-auto p-7 rounded-lg text-center">
+          <p className="text-base/loose mb-10 text-xl">
+            Data Analyst and Informatics graduate from Telkom University with experience in Data Analytics, AI, Computer Vision, Data Privacy, and Web Development.
+            Passionate about transforming data and technical challenges into practical, data-driven solutions through analytical thinking, continuous learning, and innovation.
+            With a strong attention to detail, adaptability, and collaborative mindset, driven to create meaningful impact through technology.
           </p>
         </div>
 
@@ -322,22 +321,40 @@ function App() {
 
 
         <div className="mt-12 grid gap-6 md:grid-cols-2">
-          {listProyek.map((proyek) => {
+          {listProyek.map((proyek, index) => {
             const hasLink = Boolean(proyek.href);
+            const isVideo = /\.(mp4|webm|ogg)$/i.test(proyek.gambar);
+            const isOdd = listProyek.length % 2 === 1;
+            const isLastItem = index === listProyek.length - 1;
+            const shouldCenter = isOdd && isLastItem;
 
             return (
               <div
                 key={proyek.id}
-                className="group overflow-hidden rounded-3xl border border-white/10 bg-zinc-900/40 hover:bg-zinc-900/55 transition"
+                className={`group overflow-hidden rounded-3xl border border-white/10 bg-zinc-900/40 hover:bg-zinc-900/55 transition ${
+                  shouldCenter ? "md:col-start-1 md:col-end-3 md:max-w-[calc(50%-12px)] md:mx-auto" : ""
+                }`}
               >
                 {/* Image header */}
                 <div className="relative aspect-[16/10] overflow-hidden">
-                  <img
-                    src={proyek.gambar}
-                    alt={proyek.nama}
-                    loading="lazy"
-                    className="h-full w-full object-cover group-hover:scale-[1.03] transition duration-500"
-                  />
+                  {isVideo ? (
+                    <video
+                      src={proyek.gambar}
+                      aria-label={proyek.nama}
+                      autoPlay
+                      muted
+                      loop
+                      playsInline
+                      className="h-full w-full object-cover group-hover:scale-[1.03] transition duration-500"
+                    />
+                  ) : (
+                    <img
+                      src={proyek.gambar}
+                      alt={proyek.nama}
+                      loading="lazy"
+                      className="h-full w-full object-cover group-hover:scale-[1.03] transition duration-500"
+                    />
+                  )}
 
                   <div className="absolute inset-0 bg-gradient-to-t from-zinc-950/90 via-zinc-950/20 to-transparent" />
 
@@ -390,7 +407,7 @@ function App() {
                         href={proyek.href}
                         target="_blank"
                         rel="noreferrer noopener"
-                        className="inline-flex w-full items-center justify-center gap-2 bg-amber-400 text-black hover:bg-amber-300 transition px-4 py-3 rounded-2xl border border-white/10 font-semibold"
+                        className="inline-flex w-full items-center justify-center gap-2 bg-bluecustom text-black hover:bg-white transition px-4 py-3 rounded-2xl border border-white/10 font-semibold"
 
                       >
                         {proyek.cta} <i className="ri-arrow-right-line"></i>
@@ -399,7 +416,7 @@ function App() {
                       <button
                         type="button"
                         onClick={() => setProjectModal(proyek)}
-                        className="inline-flex w-full items-center justify-center gap-2 bg-amber-400 text-black hover:opacity-90 transition px-4 py-3 rounded-2xl"
+                        className="inline-flex w-full items-center justify-center gap-2 bg-bluecustom text-black hover:bg-white transition px-4 py-3 rounded-2xl"
                       >
                         {proyek.cta} <i className="ri-file-list-3-line"></i>
                       </button>
@@ -455,7 +472,7 @@ function App() {
           <div className="grid lg:grid-cols-2 grid-cols-1 gap-10 items-start">
             {/* LEFT */}
             <div>
-              <p className="text-amber-300/90 text-sm tracking-wide mb-3">Let's talk</p>
+              <p className="text-bluecustom/90 text-sm tracking-wide mb-3">Let's talk</p>
               <h2 className="text-5xl font-extrabold leading-tight">Contact</h2>
 
               <p className="mt-6 opacity-70 text-base/loose max-w-xl">
@@ -464,9 +481,9 @@ function App() {
               </p>
 
               <div className="mt-6 flex items-center gap-3 opacity-75">
-                <i className="ri-map-pin-2-line text-amber-300"></i>
+                <i className="ri-map-pin-2-line text-bluecustom"></i>
                 <p className="text-base">
-                  Location: <span className="text-white">Jakarta, Indonesia</span>
+                  Location: <span className="text-white">Depok, Indonesia</span>
                 </p>
               </div>
             </div>
@@ -487,7 +504,7 @@ function App() {
                   placeholder="Name"
                   required
                   className="w-full rounded-xl bg-zinc-950/40 border border-white/10 px-4 py-3
-                            outline-none focus:border-amber-300/60 focus:ring-2 focus:ring-amber-300/20"
+                            outline-none focus:border-bluecustom focus:ring-2 focus:ring-bluecustom"
                 />
 
                 <label className="sr-only" htmlFor="email">Email</label>
@@ -498,7 +515,7 @@ function App() {
                   placeholder="Email"
                   required
                   className="w-full rounded-xl bg-zinc-950/40 border border-white/10 px-4 py-3
-                            outline-none focus:border-amber-300/60 focus:ring-2 focus:ring-amber-300/20"
+                            outline-none focus:border-bluecustom focus:ring-2 focus:ring-bluecustom"
                 />
 
                 <label className="sr-only" htmlFor="message">Message</label>
@@ -509,7 +526,7 @@ function App() {
                   rows="7"
                   required
                   className="w-full rounded-xl bg-zinc-950/40 border border-white/10 px-4 py-3
-                            outline-none focus:border-amber-300/60 focus:ring-2 focus:ring-amber-300/20"
+                            outline-none focus:border-bluecustom focus:ring-2 focus:ring-bluecustom"
                 />
 
                 <button
@@ -575,7 +592,7 @@ function App() {
 
           {projectModal.highlights?.length ? (
             <div className="mt-5">
-              <p className="font-semibold mb-2">What I did (safe to share)</p>
+              <p className="font-semibold mb-2">I am Responsible in ensuring:</p>
               <ul className="list-disc pl-5 space-y-2 opacity-75">
                 {projectModal.highlights.map((h, i) => (
                   <li key={i}>{h}</li>

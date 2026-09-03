@@ -110,7 +110,7 @@ import Proyek2 from "/assets/proyek/paper.webp";
 import Proyek3 from "/assets/proyek/abipraya.webp";
 import Proyek4 from "/assets/proyek/proyek4.webp";
 import Proyek5 from "/assets/proyek/sinarmas.webp";
-import Proyek6 from "/assets/proyek/proyek6.webp";
+const Proyek6 = "/assets/proyek/3D.webm";
 
 export const listProyek = [
   {
@@ -152,19 +152,36 @@ export const listProyek = [
   {
     id: 4,
     gambar: Proyek5,
-    nama: "PT Bank Sinarmas Tbk - Data Privacy Governance",
+    nama: "PT Bank Sinarmas Tbk - Data Privacy",
     subtitle: "Data Privacy Analyst Intern | Enterprise Data Governance",
     desk:
-      "Worked on RoPA and PIA, supported compliance with Indonesia's Personal Data Protection Law (UU PDP), and make Data Flow Diagrams for data activities.",
-    tools: ["RoPA", "PIA", "UU PDP", "Audit Support"],
+      "Worked on RoPA and DPIA, supported compliance with Indonesia's Personal Data Protection Law (UU PDP), and make Data Flow Diagrams for data activities.",
+    tools: ["RoPA", "DPIA", "UU PDP", "Audit Support"],
     href: "",
     cta: "Open Case Study",
     category: "privacy",
     highlights: [
-      "Supported enterprise-wide compliance for personal data processing activities aligned with UU PDP.",
-      "Developed and maintained RoPA and data-flow mapping with cross-functional stakeholders.",
-      "Assisted audits/assessments and drove remediation tracking until closure.",
-      "Provided QA support for an Enterprise Data Governance application (no public repository).",
+      "Executed Record of Processing Activities (RoPA) and Data Protection Impact Assessment (DPIA) activities.",
+      "Conducted system testing for data privacy applications to support business requirements.",
+      "Performed Data Flow Diagram (DFD) mapping to identify and document personal data flows.",
+    ],
+  },
+  {
+    id: 5,
+    gambar: Proyek6,
+    nama: "PT Dalligent Solusi Indonesia (KUPU.ID) - Data Annotation for AI Training",
+    subtitle: "Data Annotator Fulltime | Xiaomi Corporation Project",
+    desk:
+      "Supporting a computer vision project for a leading global technology company developing advanced autonomous driving technology for its automotive products.",
+    tools: ["2D Traffic Sign Recognition", "3D Object Detection"],
+    href: "",
+    cta: "Open Case Study",
+    category: "privacy",
+    highlights: [
+      "Contributed to 2D Traffic Sign Recognition and 3D Object Detection.",
+      "Annotated high-volume automotive visual data, including objects and road-related elements essential for computer vision model development.",
+      "Consistently achieved 1,000+ bounding boxes per day, exceeding daily targets and maintaining monthly surplus performance.",
+      "Maintained high standards of accuracy, productivity, and attention to detail in a fast-paced, target-driven environment.",
     ],
   },
 ];
@@ -195,29 +212,29 @@ export const experienceList = [
     id: "exp-1",
     title: "BRIN",
     org: "Data Analyst (Internship)",
-    meta: "",
+    meta: "Gephi / Social Network Analysis",
     period: "Mar 2024 — Jul 2024",
   },
   {
     id: "exp-2",
-    title: "Paper",
-    org: "Researcher — Best Paper",
-    meta: "SVM TF-IDF + SNA",
-    period: "Jun 2024 — Jan 2025",
-  },
-  {
-    id: "exp-3",
     title: "PT Brantas Abipraya",
     org: "Web Development (Internship)",
     meta: "Laravel",
     period: "Jul 2024 — Feb 2025",
   },
   {
-    id: "exp-4",
+    id: "exp-3",
     title: "PT Bank Sinarmas",
     org: "Data Privacy Analyst (Internship)",
     meta: "RoPA / DPIA / UU PDP",
     period: "Apr 2025 — Present",
+  },
+  {
+    id: "exp-4",
+    title: "PT Dalligent Solusi Indonesia (KUPU.ID)",
+    org: "Data Annotator (Fulltime)",
+    meta: "2D Traffic Sign Recognition / 3D Object Detection",
+    period: "Mar 2026 — Present",
   },
 ];
 

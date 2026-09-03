@@ -6,6 +6,10 @@
   }
 }
 
+@theme {
+  --color-bluecustom: #00f0ff;
+}
+
 html, body {
   scroll-behavior: smooth;
   overflow-x: hidden; /* ✅ cegah page geser kanan-kiri */
@@ -33,11 +37,11 @@ html, body {
 
   background: conic-gradient(
     from 0deg,
-    rgba(245, 158, 11, 0.95),
+    rgba(14, 121, 178, 1),
     rgba(255, 255, 255, 0.08),
-    rgba(245, 158, 11, 0.95),
+    rgba(14, 121, 178, 1),
     rgba(255, 255, 255, 0.10),
-    rgba(245, 158, 11, 0.95)
+    rgba(14, 121, 178, 1)
   );
 
   /* bikin gradient cuma muncul di "border", tengahnya bolong */
@@ -95,10 +99,10 @@ html, body {
   width: 88px;
   height: 88px;
   border-radius: 18px;
-  background: rgb(245 158 11);
+  background: rgb(0 240 255 / 1);
   display: grid;
   place-items: center;
-  box-shadow: 0 20px 60px rgba(245, 158, 11, 0.22);
+  /* box-shadow: 0 20px 60px rgba(245, 158, 11, 0.22); */
 }
 
 .hero-badge__word {
@@ -223,7 +227,7 @@ html, body {
 }
 .about-tabbtn.is-active{
   opacity: 1;
-  background: rgba(245, 158, 11, 0.92);
+  background: rgba(0, 240, 255,  1);
   color: #111;
 }
 
@@ -290,9 +294,9 @@ html, body {
 }
 .about-journey__tab.is-active{
   opacity: 1;
-  background: rgba(245, 158, 11, 0.92);
+  background: rgba(0, 240, 255,  1);
   color: #111;
-  border-color: rgba(245, 158, 11, 0.35);
+  border-color: rgba(0, 240, 255,  1);
 }
 
 .about-journey__title{
@@ -349,7 +353,7 @@ html, body {
   width: 12px;
   height: 12px;
   border-radius: 999px;
-  background: rgba(245, 158, 11, 0.95);
+  background: rgba(14, 121, 178, 1);
   box-shadow: 0 0 0 9px rgba(245, 158, 11, 0.12);
   z-index: 2;
 }
@@ -526,7 +530,7 @@ html, body {
 }
 
 .awards__kicker {
-  color: #f59e0b; /* match amber */
+  color: #00f0ff; /* match amber */
   font-size: 14px;
   letter-spacing: 0.08em;
   margin-bottom: 10px;

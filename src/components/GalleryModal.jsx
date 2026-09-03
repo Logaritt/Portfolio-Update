@@ -115,7 +115,7 @@ export default function GalleryModal({ open, onClose, items = [], startIndex = 0
               </span>
             ) : null}
             {current.desc ? <p className="mt-2 opacity-70 leading-relaxed">{current.desc}</p> : null}
-            <p className="mt-2 text-xs opacity-50">Tips: gunakan tombol panah keyboard kiri/kanan.</p>
+            {/* <p className="mt-2 text-xs opacity-50">Tips: gunakan tombol panah keyboard kiri/kanan.</p> */}
           </div>
         </div>
       </div>

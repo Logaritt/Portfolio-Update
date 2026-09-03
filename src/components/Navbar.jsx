@@ -20,7 +20,7 @@ export const Navbar = () => {
           <li>
             <a
               href="#beranda"
-              className="text-sm sm:text-base font-medium hover:text-amber-300 transition"
+              className="text-sm sm:text-base font-medium hover:text-bluecustom transition"
             >
               Home
             </a>
@@ -28,7 +28,7 @@ export const Navbar = () => {
           <li>
             <a
               href="#About"
-              className="text-sm sm:text-base font-medium hover:text-amber-300 transition"
+              className="text-sm sm:text-base font-medium hover:text-bluecustom transition"
             >
               About
             </a>
@@ -36,7 +36,7 @@ export const Navbar = () => {
           <li>
             <a
               href="#Project"
-              className="text-sm sm:text-base font-medium hover:text-amber-300 transition"
+              className="text-sm sm:text-base font-medium hover:text-bluecustom transition"
             >
               Projects
             </a>
@@ -44,7 +44,7 @@ export const Navbar = () => {
           <li>
             <a
               href="#Awards"
-              className="text-sm sm:text-base font-medium hover:text-amber-300 transition"
+              className="text-sm sm:text-base font-medium hover:text-bluecustom transition"
             >
               Awards
             </a>
@@ -52,7 +52,7 @@ export const Navbar = () => {
           <li>
             <a
               href="#Kontak"
-              className="text-sm sm:text-base font-medium hover:text-amber-300 transition"
+              className="text-sm sm:text-base font-medium hover:text-bluecustom transition"
             >
               Contact
             </a>
